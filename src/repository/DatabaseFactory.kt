@@ -13,12 +13,13 @@ object DatabaseFactory {
 
         transaction {
             SchemaUtils.create(Events)
+            SchemaUtils.create(Birds)
         }
     }
     private fun hikari(): HikariDataSource {
         val config = HikariConfig()
-        config.driverClassName = "org.h2.driver"
-        config.jdbcUrl = "jdbc:h2:mem:test"
+        config.driverClassName = "org.postgresql.Driver"
+        config.jdbcUrl = "jdbc:postgresql:birdtakehome?user=postgres"
         config.maximumPoolSize = 3
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"

@@ -30,7 +30,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     DatabaseFactory.init()
-    val db = InMemoryRepository()
+    val db = EventsBirdsRepository()
 
     routing {
         home()

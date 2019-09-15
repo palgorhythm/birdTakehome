@@ -1,7 +1,19 @@
 package com.birdTakehome.model
 
+import org.jetbrains.exposed.dao.*
+import org.jetbrains.exposed.sql.*
 import java.io.Serializable
+import java.util.*
 
-data class Bird(val id: String, var lat: Float, var lng: Float, var state: String) : Serializable {
-    var events: List<Event>? = null
+class Bird(id: EntityID<UUID>) : UUIDEntity(id) {
+    companion object : UUIDEntityClass<Bird>(Birds)
+    var lat by Birds.lat
+    var lng by Birds.lng
+    var state by Birds.state
+}
+
+object Birds : UUIDTable() {
+    val state = varchar("state", 255)
+    val lat = float("lat")
+    val lng = float("lng")
 }
