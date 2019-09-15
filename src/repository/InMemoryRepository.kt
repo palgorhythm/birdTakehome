@@ -37,11 +37,14 @@ class InMemoryRepository : Repository{
         return event
     }
 
-    override suspend fun getBirdById(birdId: String): Bird {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getBirdById(birdId: String): Bird? {
+        val bird = birds.find{it.id == birdId}
+        val eventsForThisBird = events.filter{it.bird_id == bird?.id}
+        bird?.events = eventsForThisBird
+        return bird
     }
 
-    override suspend fun getBirdsByState(state: String): List<Bird> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getBirdsByState(state: String): List<Bird>? {
+        return birds.filter{it.state == state}
     }
 }

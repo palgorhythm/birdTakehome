@@ -29,12 +29,17 @@ fun Application.module(testing: Boolean = false) {
         moshi()
     }
 
+    DatabaseFactory.init()
     val db = InMemoryRepository()
 
     routing {
         home()
 
         event(db)
+
+        bird(db)
+
+        birds(db)
     }
 }
 
