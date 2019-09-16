@@ -5,12 +5,20 @@ import org.jetbrains.exposed.sql.*
 import java.io.Serializable
 import java.util.*
 
-class Bird(id: EntityID<UUID>) : UUIDEntity(id) {
-    companion object : UUIDEntityClass<Bird>(Birds)
-    var lat by Birds.lat
-    var lng by Birds.lng
-    var state by Birds.state
-}
+data class Bird(
+    val id: String,
+    val lat: Float,
+    val lng: Float,
+    val state: String
+)
+
+data class BirdWithEvents(
+    val id: String,
+    val lat: Float,
+    val lng: Float,
+    val state: String,
+    var events: Array<Event>
+)
 
 object Birds : UUIDTable() {
     val state = varchar("state", 255)
