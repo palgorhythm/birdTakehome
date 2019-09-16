@@ -4,12 +4,17 @@ import com.birdTakehome.api.*
 import com.birdTakehome.app.*
 import com.birdTakehome.repository.*
 import com.ryanharter.ktor.moshi.*
+import dagger.*
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
+@Component
+internal interface AppComponent {
+    val repository: EventsBirdsRepository
+}
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -30,11 +35,10 @@ fun Application.module(testing: Boolean = false) {
     }
 
     DatabaseFactory.init()
-    val db = EventsBirdsRepository()
+    val appComponent = DaggerAppComponent.create()
+    val db = appComponent.repository
 
     routing {
-        home()
-
         event(db)
 
         bird(db)

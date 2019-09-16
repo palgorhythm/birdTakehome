@@ -2,7 +2,6 @@ package com.birdTakehome.model
 
 import org.jetbrains.exposed.dao.*
 import org.jetbrains.exposed.sql.*
-import java.io.Serializable
 import java.util.*
 
 data class Event(

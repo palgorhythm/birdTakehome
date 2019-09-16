@@ -5,11 +5,11 @@ import com.birdTakehome.repository.DatabaseFactory.dbQuery
 import org.jetbrains.exposed.dao.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import java.lang.IllegalArgumentException
 import java.sql.*
 import java.util.*
+import javax.inject.*
 
-class EventsBirdsRepository : Repository {
+class EventsBirdsRepository @Inject constructor(): Repository {
     override suspend fun addEvent(kindInput: String, bird_idInput: UUID, latInput: Float, lngInput: Float){
         require(kindInput == "ride_start" || kindInput == "ride_end") { "not a valid event kind!" }
         transaction{
