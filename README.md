@@ -6,8 +6,8 @@
     http://ec2-18-233-7-248.compute-1.amazonaws.com:3000/api/birds?state=in_ride
 
 - ##### GET a bird with its events
-    some bird: http://ec2-18-233-7-248.compute-1.amazonaws.com:3000/api/bird/46ff9fb2-4517-4450-a12a-4bcc18b04965
-    some other bird: http://ec2-18-233-7-248.compute-1.amazonaws.com:3000/api/bird/46ff9fb2-4517-4450-b12b-4bcc18b04965
+    - some bird: http://ec2-18-233-7-248.compute-1.amazonaws.com:3000/api/bird/46ff9fb2-4517-4450-a12a-4bcc18b04965
+    - some other bird: http://ec2-18-233-7-248.compute-1.amazonaws.com:3000/api/bird/46ff9fb2-4517-4450-b12b-4bcc18b04965
     
 - ##### POST new event
     http://ec2-18-233-7-248.compute-1.amazonaws.com:3000/api/event
