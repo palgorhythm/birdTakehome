@@ -2,7 +2,7 @@ package com.birdTakehome.db
 
 import com.birdTakehome.model.*
 import com.zaxxer.hikari.*
-import io.github.cdimascio.dotenv.*
+//import io.github.cdimascio.dotenv.*
 import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.*
@@ -21,7 +21,7 @@ object DatabaseInitializer {
     private fun hikari(): HikariDataSource { // hikari config, including DB url specification
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
-        config.jdbcUrl = dotenv()["DB_URL"]
+        config.jdbcUrl = "DB_URL=jdbc:postgresql:birdtakehome?user=postgres"
         config.maximumPoolSize = 3
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"

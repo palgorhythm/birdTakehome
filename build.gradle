@@ -43,9 +43,7 @@ dependencies {
     compile "org.postgresql:postgresql:$postgres_version"
     implementation "com.google.dagger:dagger:$dagger_version"
     compileOnly "javax.annotation:jsr250-api:1.0"
-    compile 'io.github.cdimascio:java-dotenv:5.1.1'
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-
 }
 
 task stage {
