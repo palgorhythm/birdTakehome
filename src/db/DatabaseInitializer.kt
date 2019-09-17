@@ -22,7 +22,7 @@ object DatabaseInitializer {
     private fun hikari(): HikariDataSource { // hikari config, including DB url specification
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
-        config.jdbcUrl = Dotenv.load().get("LOCAL_DB_URLL")
+        config.jdbcUrl = Dotenv.load().get("DB_URL")
         config.maximumPoolSize = 1
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"

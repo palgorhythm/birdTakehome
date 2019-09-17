@@ -25,9 +25,10 @@
 
 ### test it locally
 - clone this repo, then...
-- option 1: add LOCAL_DB_URL as an environment variable in a .env file in the project root,
-with its value set to the url of your local postgres database
-- option 2: to use an in-memory repository (so you don't have to create a local postgres db),
-and change EventsBirdsDatabase on line 16 in Application.kt to MockDatabase.
-
-- after either option, run ```./gradlew run``` in the project root and the server will run on port 3000.
+- option 1 (in-memory db) 
+    1. run ```./gradlew run``` in the project root and the server will run on port 3000.
+- option 2 (postgres): 
+    1. change MockDatabase on line 16 in Application.kt to EventsBirdsDatabase
+    2. create a local postgres db with the name birdtakehome (skip this step if you're using a remote db)
+    3. add DB_URL as an environment variable in the .env file in the project root, with its value set to the url of the postgres database
+    4. run ```./gradlew run``` in the project root and the server will run on port 3000.
