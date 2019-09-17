@@ -5,7 +5,6 @@ import com.birdTakehome.db.DatabaseInitializer.dbQuery
 import org.jetbrains.exposed.dao.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import java.sql.*
 import java.util.*
 import javax.inject.*
 
@@ -16,7 +15,7 @@ class EventsBirdsDatabase @Inject constructor(): DB {
         transaction {
             val birdEntityId = EntityID(UUID.fromString(bird_idInput), Birds)
             // convert the string input into a UUID (if applicable) and then into entityid for insertion into the table
-            Birds.insertOrUpdate(Birds.id){ // upsert
+                Birds.insertOrUpdate(Birds.id){ // upsert
                 it[id] = birdEntityId
                 it[lat] = latInput
                 it[lng] = lngInput
@@ -70,14 +69,16 @@ class EventsBirdsDatabase @Inject constructor(): DB {
             lat = row[Events.lat],
             lng = row[Events.lng],
             kind = row[Events.kind],
-            timestamp = row[Events.timestamp])
+            timestamp = row[Events.timestamp]
+        )
 
     private fun toBird(row: ResultRow): Bird =
         Bird(
             id = row[Birds.id].value.toString(),
             lat = row[Birds.lat],
             lng = row[Birds.lng],
-            state = row[Birds.state])
+            state = row[Birds.state]
+        )
 
     private fun toBirdWithEvents(row: ResultRow, eventArr: Array<Event>): BirdWithEvents =
         BirdWithEvents(

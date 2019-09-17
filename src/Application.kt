@@ -19,8 +19,7 @@ internal interface AppComponent {
 fun main(args: Array<String>): Unit = EngineMain.main(args) // initializes & starts the Netty server
 
 @Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module() {
 // extension function to Application that sets up error handling, serialization, routes, etc.
 
     install(DefaultHeaders)
@@ -35,7 +34,6 @@ fun Application.module(testing: Boolean = false) {
         // enable moshi for content conversion (JSON parsing & serialization)
         moshi()
     }
-
     val appComponent = DaggerAppComponent.create() // inject dependencies
     val db = appComponent.db //grab the db component
 

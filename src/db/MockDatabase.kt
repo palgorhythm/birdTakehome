@@ -1,7 +1,6 @@
 package com.birdTakehome.db
 
 import com.birdTakehome.model.*
-import java.sql.*
 import java.util.*
 import javax.inject.*
 import kotlin.collections.ArrayList
