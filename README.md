@@ -29,6 +29,6 @@
     1. run ```./gradlew run``` in the project root and the server will run on port 3000.
 - option 2 (postgres): 
     1. change MockDatabase on line 16 in Application.kt to EventsBirdsDatabase
-    2. create a local postgres db with the name birdtakehome (skip this step if you're using a remote db)
+    2. create a local or remote postgres db
     3. add DB_URL as an environment variable in the .env file in the project root, with its value set to the url of the postgres database
     4. run ```./gradlew run``` in the project root and the server will run on port 3000.
