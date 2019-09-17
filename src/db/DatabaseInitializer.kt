@@ -21,7 +21,7 @@ object DatabaseInitializer {
     private fun hikari(): HikariDataSource { // hikari config, including DB url specification
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
-        config.jdbcUrl = "DB_URL=jdbc:postgresql:birdtakehome?user=postgres"
+        config.jdbcUrl = "jdbc:postgresql://salt.db.elephantsql.com:5432/tiaulsln?user=tiaulsln&password=5bGsW-28n5bOJjP_aIx78EhRkFUaHzeX"
         config.maximumPoolSize = 3
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
