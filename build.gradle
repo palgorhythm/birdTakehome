@@ -1,6 +1,8 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url "https://dl.bintray.com/kotlin/ktor" }
     }
     
     dependencies {
@@ -38,10 +40,10 @@ dependencies {
     compile "com.zaxxer:HikariCP:$hikaricp_version"
     compile "org.postgresql:postgresql:$postgres_version"
     implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
     compileOnly "javax.annotation:jsr250-api:1.0"
     compile 'io.github.cdimascio:java-dotenv:5.1.1'
     compile "io.ktor:ktor-server-netty:$ktor_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
 
 task stage {
