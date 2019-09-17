@@ -13,7 +13,7 @@ import io.ktor.server.netty.*
 
 @Component
 internal interface AppComponent {
-    val db: EventsBirdsDatabase
+    val db: MockDatabase
 }
 
 fun main(args: Array<String>): Unit = EngineMain.main(args) // initializes & starts the Netty server

@@ -8,6 +8,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.heroku.sdk.heroku-gradle" version "1.0.4"
+}
+
 apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: "kotlin-kapt"
@@ -41,6 +45,7 @@ dependencies {
     compileOnly "javax.annotation:jsr250-api:1.0"
     compile 'io.github.cdimascio:java-dotenv:5.1.1'
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
 }
 
 task stage {
