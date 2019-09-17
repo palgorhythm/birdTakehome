@@ -1,16 +1,15 @@
-package com.birdTakehome.app
+package api
 
-import com.birdTakehome.*
-import com.birdTakehome.repository.*
+import com.birdTakehome.db.*
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
 
-const val BIRDS = "$API_VERSION/birds"
+const val BIRDS_ENDPOINT = "api/birds"
 
-fun Route.birds(db: Repository){
-    get(BIRDS){
+fun Route.birds(db: DB){
+    get(BIRDS_ENDPOINT){
         val state = call.request.queryParameters["state"] ?: ""
         val birds = db.getBirdsByState(state)
         call.respond(birds)

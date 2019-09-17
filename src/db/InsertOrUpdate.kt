@@ -1,4 +1,4 @@
-package com.birdTakehome.repository
+package com.birdTakehome.db
 
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.*

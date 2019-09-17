@@ -1,16 +1,15 @@
-package com.birdTakehome.app
+package com.birdTakehome.api
 
-import com.birdTakehome.*
-import com.birdTakehome.repository.*
+import com.birdTakehome.db.*
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import java.util.*
 
-const val BIRD = "$API_VERSION/bird/{id}"
+const val BIRD_ENDPOINT = "api/bird/{id}"
 
-fun Route.bird(db: Repository){
-    get(BIRD){
+fun Route.bird(db: DB){
+    get(BIRD_ENDPOINT){
         val pathParam = call.parameters["id"] ?: ""
         val bird = db.getBirdById(UUID.fromString(pathParam))
         if (bird != null) {

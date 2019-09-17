@@ -4,9 +4,9 @@ import org.jetbrains.exposed.dao.*
 
 data class Bird(
     val id: String,
-    val lat: Float,
-    val lng: Float,
-    val state: String
+    var lat: Float,
+    var lng: Float,
+    var state: String
 )
 
 data class BirdWithEvents(

@@ -1,7 +1,7 @@
-package com.birdTakehome.repository
+package com.birdTakehome.db
 
 import com.birdTakehome.model.*
-import com.birdTakehome.repository.DatabaseFactory.dbQuery
+import com.birdTakehome.db.DatabaseInitializer.dbQuery
 import org.jetbrains.exposed.dao.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -9,7 +9,7 @@ import java.sql.*
 import java.util.*
 import javax.inject.*
 
-class EventsBirdsRepository @Inject constructor(): Repository {
+class EventsBirdsDatabase @Inject constructor(): DB {
     override suspend fun addEvent(kindInput: String, bird_idInput: UUID, latInput: Float, lngInput: Float){
         require(kindInput == "ride_start" || kindInput == "ride_end") { "not a valid event kind!" }
         transaction{
