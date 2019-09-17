@@ -22,7 +22,7 @@ object DatabaseInitializer {
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
         config.jdbcUrl = "jdbc:postgresql://salt.db.elephantsql.com:5432/tiaulsln?user=tiaulsln&password=5bGsW-28n5bOJjP_aIx78EhRkFUaHzeX"
-        config.maximumPoolSize = 3
+        config.maximumPoolSize = 1
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
         config.validate()
