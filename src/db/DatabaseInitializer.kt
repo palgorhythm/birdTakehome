@@ -2,6 +2,7 @@ package com.birdTakehome.db
 
 import com.birdTakehome.model.*
 import com.zaxxer.hikari.*
+import io.github.cdimascio.dotenv.*
 //import io.github.cdimascio.dotenv.*
 import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
@@ -21,7 +22,7 @@ object DatabaseInitializer {
     private fun hikari(): HikariDataSource { // hikari config, including DB url specification
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
-        config.jdbcUrl = "jdbc:postgresql://salt.db.elephantsql.com:5432/tiaulsln?user=tiaulsln&password=5bGsW-28n5bOJjP_aIx78EhRkFUaHzeX"
+        config.jdbcUrl = Dotenv.load().get("LOCAL_DB_URLL")
         config.maximumPoolSize = 1
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
