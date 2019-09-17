@@ -1,1 +1,1 @@
-web:  build/install/birdTakehome/bin/birdTakehome
+web:  ./app/build/install/birdTakehome/bin/birdTakehome
