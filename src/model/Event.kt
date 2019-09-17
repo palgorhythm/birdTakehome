@@ -14,7 +14,7 @@ data class Event(
 )
 
 object Events : UUIDTable() {
-    val bird_id: Column<EntityID<UUID>> = reference("bird_id", Birds).primaryKey()
+    val bird_id: Column<EntityID<UUID>> = reference("bird_id", Birds).primaryKey() // foreign key ref to bird_id in Birds table
     val lat: Column<Float> = float("lat")
     val lng: Column<Float> = float("lng")
     val kind: Column<String> = varchar("kind", 255)

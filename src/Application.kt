@@ -1,6 +1,5 @@
 package com.birdTakehome
 
-import api.*
 import com.birdTakehome.api.*
 import com.birdTakehome.db.*
 import com.ryanharter.ktor.moshi.*
@@ -14,7 +13,7 @@ import io.ktor.server.netty.*
 
 @Component
 internal interface AppComponent {
-    val repository: InMemoryDatabase
+    val db: EventsBirdsDatabase
 }
 
 fun main(args: Array<String>): Unit = EngineMain.main(args) // initializes & starts the Netty server
@@ -37,9 +36,10 @@ fun Application.module(testing: Boolean = false) {
         moshi()
     }
 
-    DatabaseInitializer.init()
     val appComponent = DaggerAppComponent.create() // inject dependencies
-    val db = appComponent.repository //grab the db component
+    val db = appComponent.db //grab the db component
+
+    if(db.needToInitialize) DatabaseInitializer.init()
 
     routing {
         event(db) // initialize our routes to use whatever db we chose

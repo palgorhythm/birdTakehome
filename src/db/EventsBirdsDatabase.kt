@@ -10,35 +10,33 @@ import java.util.*
 import javax.inject.*
 
 class EventsBirdsDatabase @Inject constructor(): DB {
-    override suspend fun addEvent(kindInput: String, bird_idInput: UUID, latInput: Float, lngInput: Float){
-        require(kindInput == "ride_start" || kindInput == "ride_end") { "not a valid event kind!" }
-        transaction{
-            Birds.select{Birds.id eq bird_idInput}
-        }
+    val needToInitialize = true
+    override suspend fun addEvent(kindInput: String, bird_idInput: String, latInput: Float, lngInput: Float, timestampInput: Long){
+        require(kindInput == "ride_start" || kindInput == "ride_end") { "not a valid event kind!" } //error handling
         transaction {
-            val curTimestamp = Timestamp(System.currentTimeMillis()).time
-            val birdEntityId = EntityID(bird_idInput, Birds)
-            Birds.insertOrUpdate(Birds.id){
+            val birdEntityId = EntityID(UUID.fromString(bird_idInput), Birds)
+            // convert the string input into a UUID (if applicable) and then into entityid for insertion into the table
+            Birds.insertOrUpdate(Birds.id){ // upsert
                 it[id] = birdEntityId
                 it[lat] = latInput
                 it[lng] = lngInput
                 it[state] = if(kindInput == "ride_start") "in_ride" else "idle"
             }
-            Events.insert{
+            Events.insert{ // insert the new event
                 it[kind] = kindInput
                 it[bird_id] = birdEntityId
                 it[lat] = latInput
                 it[lng] = lngInput
-                it[timestamp] = curTimestamp
+                it[timestamp] = timestampInput
             }
         }
     }
 
-    override suspend fun getBirdById(birdId: UUID): BirdWithEvents? {
+    override suspend fun getBirdById(bird_idInput: String): BirdWithEvents? {
         val dbResults = dbQuery {
-            (Birds innerJoin Events)
+            (Birds innerJoin Events)  // get all of the events for this bird
                 .select {
-                    (Birds.id eq EntityID(birdId, Birds)) and
+                    (Birds.id eq EntityID(UUID.fromString(bird_idInput), Birds)) and
                             (Events.bird_id eq Birds.id)
                 }
                 .mapNotNull{
@@ -48,23 +46,24 @@ class EventsBirdsDatabase @Inject constructor(): DB {
 
         if(dbResults.isEmpty()) return null
 
-        val eventArr : Array<Event> = dbResults.map{ toEvent(it) }.toTypedArray()
+        val eventArr : Array<Event> = dbResults.map{ toEvent(it) }.toTypedArray() // build an array of events from the result rows
         return toBirdWithEvents(dbResults[0], eventArr)
+        // first arg is a result row containing the bird info (all of them do)
     }
 
     override suspend fun getBirdsByState(state: String): Array<Bird> {
-        require(state == "idle" || state == "in_ride") { "not a valid bird state!" }
+        require(state == "idle" || state == "in_ride") { "not a valid bird state!" } // error handling
         return dbQuery {
-            Birds.select{ Birds.state eq state}.mapNotNull{toBird(it)}.toTypedArray()
+            Birds.select{ Birds.state eq state}.mapNotNull{toBird(it)}.toTypedArray() // db query and convert result rows to instances of Bird data class
         }
     }
 
     override suspend fun clearBothTables(){
-        Birds.deleteAll()
+        Birds.deleteAll() // just in case we need this
         Events.deleteAll()
     }
 
-    private fun toEvent(row: ResultRow): Event =
+    private fun toEvent(row: ResultRow): Event = // utility function to build instances of Event data class from db query results
         Event(
             id = row[Events.id].value.toString(),
             bird_id = row[Events.bird_id].toString(),
