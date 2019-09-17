@@ -1,1 +1,1 @@
-web:  ./app/build/install/birdTakehome/bin/birdTakehome
+web:  ./gradlew run
